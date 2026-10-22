@@ -1,0 +1,43 @@
+name: Frontend CI
+
+on:
+  push:
+    branches: [main, master, master2]
+    paths:
+      - 'hma-template/emsv1/**'
+      - '.github/workflows/frontend-ci.yml'
+  pull_request:
+    paths:
+      - 'hma-template/emsv1/**'
+      - '.github/workflows/frontend-ci.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
+    defaults:
+      run:
+        working-directory: hma-template/emsv1
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: hma-template/emsv1/.nvmrc
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: hma-template/emsv1
+
+      # Non-blocking: the codebase currently has ~940 pre-existing lint
+      # errors (mostly prettier formatting in src/ and supabase/seed/*.mjs).
+      # Surfacing them without failing the build until that debt is paid down.
+      - name: Lint (report only)
+        run: npm run lint
+        working-directory: hma-template/emsv1
+        continue-on-error: true
+
+      - name: Build
+        run: npm run build
+        working-directory: hma-template/emsv1

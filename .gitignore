@@ -1,0 +1,56 @@
+.worktrees/
+
+# Dependencies
+node_modules/
+jspm_packages/
+web_modules/
+
+# Builds
+build/
+dist/
+out/
+.next/
+.nuxt/
+.cache/
+
+# Environment and secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+*.env.*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+easy-install.pth
+*.egg-info/
+.installed.cfg
+*.egg
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS Files
+.DS_Store
+Thumbs.db
+.superpowers/
+
+# keep documented env templates
+!.env.example
+!**/.env.example

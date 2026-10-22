@@ -1,0 +1,1164 @@
+// HMA IEMS — Custom Brand Overrides
+// Imported after CoreUI, so SCSS $variables cannot override compilation.
+// Use CSS custom properties (--cui-*) to override at runtime.
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Fira+Sans:wght@300;400;500;600;700&display=swap');
+
+// ─ Brand Tokens (AWS-console-inspired density + shape, theme-independent) ─────
+:root {
+  // Fira Sans replaces the CoreUI default type stack
+  --cui-body-font-family:
+    'Fira Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --cui-body-font-size: 0.875rem;
+  --cui-body-line-height: 1.45;
+
+  // Flatter, squarer geometry — AWS console over CoreUI's soft rounding
+  --cui-border-radius: 0.1875rem;
+  --cui-border-radius-sm: 0.125rem;
+  --cui-border-radius-lg: 0.25rem;
+  --cui-card-border-radius: 0.1875rem;
+
+  // Cards separate via hairline border, not ambient shadow
+  --hma-card-shadow: none;
+  --hma-card-shadow-hover: none;
+
+  // Tables — dense rows for data-heavy screens
+  --cui-table-cell-padding-y: 0.4rem;
+  --cui-table-cell-padding-x: 0.75rem;
+
+  // AWS orange, used sparingly (active nav indicator, focus accents)
+  --hma-accent-orange: #ec7211;
+  --hma-accent-orange-hover: #eb5f07;
+}
+
+// ─ Light theme tokens ──────────────────────────────────────────────────────────
+[data-coreui-theme='light'] {
+  --cui-primary: #0972d3;
+  --cui-primary-rgb: 9, 114, 211;
+  --cui-accent: #ec7211;
+  --cui-accent-rgb: 236, 114, 17;
+
+  --cui-body-bg: #f2f3f3;
+  --cui-border-color: #d5dbdb;
+  --cui-table-hover-bg-rgb: 240, 247, 255;
+}
+
+.table-hover > tbody > tr:hover > * {
+  --cui-table-accent-bg: rgba(var(--cui-table-hover-bg-rgb, 9, 114, 211), 0.06);
+}
+
+// ─ Dark theme tokens ───────────────────────────────────────────────────────────
+[data-coreui-theme='dark'] {
+  --cui-primary: #539fe5;
+  --cui-primary-rgb: 83, 159, 229;
+  --cui-accent: #ff9900;
+  --cui-accent-rgb: 255, 153, 0;
+
+  --cui-body-bg: #0f1b2a;
+  --cui-border-color: rgba(255, 255, 255, 0.12);
+  --cui-table-hover-bg-rgb: 83, 159, 229;
+}
+
+// ─ Sidebar ────────────────────────────────────────────────────────────────────
+// colorScheme="dark" on CSidebar renders as .sidebar-dark
+.sidebar-dark {
+  --cui-body-bg: #0f172a;
+  --cui-sidebar-bg: #0f172a;
+
+  // Border between items — barely visible line
+  --cui-border-color: rgba(255, 255, 255, 0.07);
+
+  // Nav links — restrained defaults, bolder when active
+  --cui-sidebar-nav-link-color: rgba(255, 255, 255, 0.65);
+  --cui-sidebar-nav-link-icon-color: rgba(255, 255, 255, 0.35);
+  --cui-sidebar-nav-link-hover-color: rgba(255, 255, 255, 0.92);
+  --cui-sidebar-nav-link-hover-bg: rgba(255, 255, 255, 0.06);
+  --cui-sidebar-nav-link-hover-icon-color: rgba(255, 255, 255, 0.7);
+  --cui-sidebar-nav-link-active-color: #fff;
+  --cui-sidebar-nav-link-active-bg: rgba(236, 114, 17, 0.16);
+  --cui-sidebar-nav-link-active-icon-color: var(--hma-accent-orange);
+
+  // Group togglers inherit the link colour
+  --cui-sidebar-nav-group-toggle-show-color: rgba(255, 255, 255, 0.65);
+
+  // Logo: invert to white so it reads on the deep navy background
+  .sidebar-brand-full,
+  .sidebar-brand-narrow {
+    filter: brightness(0) invert(1);
+  }
+
+  // Current-page indicator — classic AWS console left-border accent
+  .nav-link.active {
+    border-inline-start: 3px solid var(--hma-accent-orange);
+  }
+}
+
+// Brand area border — less jarring on deep navy
+.sidebar-dark .sidebar-header {
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+// ─ Header ─────────────────────────────────────────────────────────────────────
+.header.header-sticky {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background-color: rgba(var(--cui-body-bg-rgb, 255, 255, 255), 0.9);
+}
+
+// ─ Cards — flat, hairline border, no ambient shadow ───────────────────────────
+.card {
+  box-shadow: none;
+  border: 1px solid var(--cui-border-color);
+}
+
+.card-header {
+  font-weight: 600;
+  font-size: 0.8125rem;
+  letter-spacing: 0.01em;
+  background-color: var(--cui-tertiary-bg);
+}
+
+// ─ Buttons ────────────────────────────────────────────────────────────────────
+.btn {
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  border-radius: var(--cui-border-radius-sm);
+}
+
+// btn-primary follows --cui-primary, which is theme-scoped above — no
+// hardcoded hex here so light/dark each pick up their own accent colour.
+
+// ─ Tables — dense, hairline rows, AWS-console list style ─────────────────────
+.table {
+  font-size: 0.8125rem;
+}
+
+.table > :not(caption) > * > * {
+  border-bottom-width: 1px;
+}
+
+.table > thead {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--cui-secondary-color);
+  background-color: var(--cui-tertiary-bg);
+}
+
+// ─ System Selection Cards ─────────────────────────────────────────────────────
+.system-card {
+  background: var(--cui-body-bg);
+  border-radius: 1rem;
+  padding: 2.25rem 2rem;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  border: 1.5px solid var(--cui-border-color);
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
+  text-align: center;
+  width: 280px;
+  outline: none;
+
+  @media (max-width: 576px) {
+    width: 100%;
+    max-width: 340px;
+  }
+
+  &__icon-wrap {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.25rem;
+  }
+
+  &__title {
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: var(--cui-body-color);
+    margin-bottom: 0.5rem;
+  }
+
+  &__desc {
+    font-size: 0.8125rem;
+    color: var(--cui-secondary-color);
+    margin-bottom: 1.25rem;
+    line-height: 1.55;
+  }
+
+  &--ems:hover,
+  &--ems:focus-visible {
+    border-color: #2563eb;
+    box-shadow: 0 8px 32px rgba(37, 99, 235, 0.14);
+    transform: translateY(-2px);
+  }
+
+  &--pms:hover,
+  &--pms:focus-visible {
+    border-color: #10b981;
+    box-shadow: 0 8px 32px rgba(16, 185, 129, 0.14);
+    transform: translateY(-2px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--cui-primary);
+    outline-offset: 3px;
+  }
+}
+
+// ─ Sidebar Clock ─────────────────────────────────────────────────────────────
+.sidebar-clock {
+  padding: 0.75rem 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.75rem;
+  line-height: 1.6;
+
+  &__time {
+    font-weight: 600;
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.88);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.01em;
+  }
+
+  &__ampm {
+    font-size: 0.6875rem;
+    opacity: 0.7;
+    margin-left: 1px;
+  }
+}
+
+// ─ Page Header ───────────────────────────────────────────────────────────────
+// Consistent h4 + subtitle pattern used across all module pages
+.hma-page-header {
+  margin-bottom: 1.5rem;
+
+  &__title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--cui-body-color);
+    margin-bottom: 0.2rem;
+  }
+
+  &__subtitle {
+    font-size: 0.8125rem;
+    color: var(--cui-secondary-color);
+    margin: 0;
+  }
+}
+
+// ─ Empty State ───────────────────────────────────────────────────────────────
+// Used inside table cells or card bodies when there is no data to show
+.hma-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3.5rem 1.5rem;
+
+  &__icon {
+    width: 36px;
+    height: 36px;
+    opacity: 0.18;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  &__title {
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--cui-body-color);
+    margin-bottom: 0.3rem;
+    text-align: center;
+  }
+
+  &__desc {
+    font-size: 0.8125rem;
+    color: var(--cui-secondary-color);
+    margin: 0;
+    text-align: center;
+    max-width: 300px;
+    line-height: 1.55;
+  }
+}
+
+// ─ Maintenance Banner ────────────────────────────────────────────────────────
+// (already styled inline — kept here for any future utility overrides)
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Daily Reports Feature Styles
+// ─────────────────────────────────────────────────────────────────────────────
+
+// Upload drop zone
+.upload-dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  border: 2px dashed var(--cui-border-color);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    background-color 0.2s;
+
+  &:hover {
+    border-color: var(--cui-primary);
+    background-color: rgba(37, 99, 235, 0.03);
+  }
+}
+
+// Upload preview strip
+.upload-preview-strip {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.upload-preview-item {
+  position: relative;
+  border-radius: 0.375rem;
+  overflow: hidden;
+}
+
+.upload-preview-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 0.375rem;
+  border: 1px solid var(--cui-border-color);
+}
+
+.upload-preview-pdf {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--cui-tertiary-bg);
+  border-radius: 0.375rem;
+  border: 1px solid var(--cui-border-color);
+}
+
+.upload-preview-remove {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  padding: 0.1rem 0.25rem !important;
+  line-height: 1;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.upload-preview-item:hover .upload-preview-remove {
+  opacity: 1;
+}
+
+// Geo capture card
+.geo-capture-card {
+  background: var(--cui-tertiary-bg);
+}
+
+// Report card hover
+.daily-report-card {
+  transition:
+    box-shadow 0.2s,
+    transform 0.15s;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+  }
+}
+
+// Report form — mobile sticky submit
+@media (max-width: 768px) {
+  .daily-report-form-actions {
+    position: sticky;
+    bottom: 0;
+    background: var(--cui-body-bg);
+    padding: 0.75rem 0;
+    margin: 0 -1rem;
+    padding-inline: 1rem;
+    border-top: 1px solid var(--cui-border-color);
+    z-index: 10;
+  }
+}
+
+// Status badge text
+.daily-report-status-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+// Notification bell
+.notification-bell {
+  cursor: pointer;
+  transition: transform 0.15s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Maintenance Page
+// ─────────────────────────────────────────────────────────────────────────────
+
+@keyframes hma-gear-cw {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes hma-gear-ccw {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes hma-pulse-ring {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+@keyframes hma-dot-bounce {
+  0%,
+  80%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.35;
+  }
+  40% {
+    transform: translateY(-8px);
+    opacity: 1;
+  }
+}
+
+@keyframes hma-card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.hma-maintenance {
+  &__bg {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: radial-gradient(ellipse at 50% 35%, #0d1b3e 0%, #060c1a 55%, #020408 100%);
+  }
+
+  &__ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(37, 99, 235, 0.16);
+    pointer-events: none;
+    animation: hma-pulse-ring 3.8s ease-out infinite;
+    &--1 {
+      width: 260px;
+      height: 260px;
+      animation-delay: 0s;
+    }
+    &--2 {
+      width: 480px;
+      height: 480px;
+      animation-delay: 1.2s;
+    }
+    &--3 {
+      width: 700px;
+      height: 700px;
+      animation-delay: 2.4s;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+      opacity: 0;
+    }
+  }
+
+  &__card {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 460px;
+    margin: 1rem;
+    background: rgba(8, 14, 32, 0.9);
+    border: 1px solid rgba(37, 99, 235, 0.22);
+    border-radius: 22px;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    padding: 2.75rem 3rem;
+    text-align: center;
+    box-shadow:
+      0 40px 80px rgba(0, 0, 0, 0.7),
+      0 0 0 1px rgba(255, 255, 255, 0.04),
+      0 0 60px rgba(37, 99, 235, 0.08) inset;
+    animation: hma-card-enter 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+    @media (max-width: 480px) {
+      padding: 2rem 1.5rem;
+    }
+  }
+
+  &__brand {
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(147, 197, 253, 0.45);
+    margin-bottom: 1.5rem;
+  }
+
+  &__gears {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+
+  &__gear-cw {
+    transform-origin: center center;
+    animation: hma-gear-cw 7s linear infinite;
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+
+  &__gear-ccw {
+    transform-origin: center center;
+    animation: hma-gear-ccw 4.9s linear infinite;
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+
+  &__title {
+    font-size: 1.375rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: #f1f5f9;
+    margin: 0 0 0.625rem;
+  }
+
+  &__subtitle {
+    font-size: 0.875rem;
+    color: rgba(148, 163, 184, 0.8);
+    line-height: 1.75;
+    margin: 0;
+  }
+
+  &__message {
+    margin-top: 1.25rem;
+    background: rgba(37, 99, 235, 0.1);
+    border: 1px solid rgba(37, 99, 235, 0.28);
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: #93c5fd;
+    font-weight: 500;
+    line-height: 1.65;
+  }
+
+  &__dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    margin-top: 1.75rem;
+  }
+
+  &__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(59, 130, 246, 0.5);
+    animation: hma-dot-bounce 1.5s ease-in-out infinite;
+    &:nth-child(2) {
+      animation-delay: 0.15s;
+    }
+    &:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+      opacity: 0.4;
+    }
+  }
+
+  &__label {
+    margin-top: 1.5rem;
+    font-size: 0.625rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(148, 163, 184, 0.22);
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// System Selection Page
+// ─────────────────────────────────────────────────────────────────────────────
+
+@keyframes hma-sysselect-bg {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes hma-fadeup {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hma-sysselect {
+  &__bg {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1rem;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0a0f1e 0%, #0f1d3a 40%, #091428 70%, #0a0f1e 100%);
+    background-size: 300% 300%;
+    animation: hma-sysselect-bg 10s ease infinite;
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+
+  &__grid {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(37, 99, 235, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(37, 99, 235, 0.035) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+
+  &__brand {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2.75rem;
+    animation: hma-fadeup 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+
+  &__logo {
+    height: 50px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    margin-bottom: 0.875rem;
+    opacity: 0.92;
+  }
+
+  &__title {
+    font-size: 1.625rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: #f1f5f9;
+    margin-bottom: 0.3rem;
+  }
+
+  &__subtitle {
+    font-size: 0.9375rem;
+    color: rgba(148, 163, 184, 0.65);
+    margin: 0;
+  }
+
+  &__cards {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  &__card {
+    background: rgba(12, 20, 44, 0.82);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 18px;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    padding: 2.25rem 2rem;
+    width: 280px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.22s ease,
+      transform 0.22s ease;
+    animation: hma-fadeup 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+    @media (max-width: 576px) {
+      width: 100%;
+      max-width: 340px;
+    }
+
+    &:nth-child(2) {
+      animation-delay: 0.1s;
+    }
+
+    &--ems:hover,
+    &--ems:focus-visible {
+      border-color: rgba(37, 99, 235, 0.55);
+      box-shadow:
+        0 0 0 1px rgba(37, 99, 235, 0.2),
+        0 20px 48px rgba(37, 99, 235, 0.18);
+      transform: translateY(-3px);
+    }
+    &--pms:hover,
+    &--pms:focus-visible {
+      border-color: rgba(16, 185, 129, 0.55);
+      box-shadow:
+        0 0 0 1px rgba(16, 185, 129, 0.2),
+        0 20px 48px rgba(16, 185, 129, 0.18);
+      transform: translateY(-3px);
+    }
+    &:focus-visible {
+      outline: 2px solid var(--cui-primary);
+      outline-offset: 3px;
+    }
+  }
+
+  &__icon-wrap {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.25rem;
+  }
+
+  &__card-title {
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: #f1f5f9;
+    margin-bottom: 0.5rem;
+  }
+
+  &__card-desc {
+    font-size: 0.8125rem;
+    color: rgba(148, 163, 184, 0.7);
+    margin-bottom: 1.25rem;
+    line-height: 1.6;
+  }
+
+  &__user {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 2.5rem;
+    font-size: 0.8125rem;
+    color: rgba(148, 163, 184, 0.45);
+  }
+
+  &__footer {
+    position: relative;
+    z-index: 2;
+    margin-top: 1rem;
+    font-size: 0.625rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(148, 163, 184, 0.2);
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Login Page card polish
+// Dark glass, tuned to sit in front of the DomeGallery photo backdrop
+// (see Login.jsx) rather than float as a paper rectangle on top of it.
+// ─────────────────────────────────────────────────────────────────────────────
+.hma-login-card {
+  --login-paper: #f3eee4;
+  --login-paper-muted: rgba(243, 238, 228, 0.6);
+  --login-amber: #e3a052;
+
+  border-radius: 18px !important;
+  background: rgba(20, 16, 26, 0.58) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.45),
+    0 1px 0 rgba(255, 255, 255, 0.16) inset,
+    0 0 40px rgba(227, 160, 82, 0.08);
+  color: var(--login-paper);
+
+  h2,
+  h4,
+  h5 {
+    color: var(--login-paper);
+  }
+
+  p,
+  .text-body-secondary {
+    color: var(--login-paper-muted) !important;
+  }
+
+  hr {
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    opacity: 1;
+  }
+
+  .form-control,
+  .input-group-text {
+    background-color: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.16);
+    color: var(--login-paper);
+  }
+
+  .form-control::placeholder {
+    color: rgba(243, 238, 228, 0.4);
+  }
+
+  .form-control:focus {
+    background-color: rgba(255, 255, 255, 0.09);
+    border-color: var(--login-amber);
+    color: var(--login-paper);
+    box-shadow: 0 0 0 0.2rem rgba(227, 160, 82, 0.25);
+  }
+
+  .input-group-text svg {
+    color: var(--login-paper-muted);
+  }
+
+  button.input-group-text:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+  }
+
+  .btn-primary {
+    background-color: var(--login-amber);
+    border-color: var(--login-amber);
+    color: #1a130a;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: #eeb06c !important;
+      border-color: #eeb06c !important;
+      color: #1a130a !important;
+    }
+  }
+
+  .btn-outline-secondary {
+    color: var(--login-paper-muted);
+    border-color: rgba(255, 255, 255, 0.2);
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.3);
+      color: var(--login-paper);
+    }
+  }
+
+  .alert-danger {
+    background-color: rgba(239, 116, 100, 0.16);
+    border-color: rgba(239, 116, 100, 0.35);
+    color: #ffd9d2;
+  }
+}
+
+.hma-login-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.14);
+  border: none;
+  margin: 0;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Interface micro-polish
+// ─────────────────────────────────────────────────────────────────────────────
+
+// Header: sharper brand feel
+.header.header-sticky {
+  border-bottom: 1px solid var(--cui-border-color);
+}
+
+// Header: tighter row height for AWS-console density
+.header > .container-fluid {
+  min-height: calc(3.25rem + 1px);
+}
+
+.header > .container-fluid + .container-fluid {
+  min-height: 2.5rem;
+}
+
+// Form inputs: slightly taller touch target, square corners, thin focus ring
+.form-control,
+.form-select {
+  min-height: 2.375rem;
+  border-radius: var(--cui-border-radius-sm);
+}
+
+.form-control:focus,
+.form-select:focus {
+  box-shadow: 0 0 0 1px var(--cui-primary);
+}
+
+// Input group toggle buttons
+.input-group-text[role='button'],
+button.input-group-text {
+  cursor: pointer;
+  transition: background-color 0.15s;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// AWS-console-inspired shell: modals, badges, pagination, breadcrumb
+// ─────────────────────────────────────────────────────────────────────────────
+
+// Modals — square-ish, hairline border, subtle (not heavy) shadow
+.modal-content {
+  border-radius: var(--cui-border-radius-sm);
+  border: 1px solid var(--cui-border-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.modal-header {
+  border-bottom: 1px solid var(--cui-border-color);
+}
+
+.modal-footer {
+  border-top: 1px solid var(--cui-border-color);
+}
+
+// Badges — smaller, less saturated pill styling. Colors still come from
+// CoreUI's --cui-success/-warning/-danger/etc tokens, so the per-page
+// STATUS_COLORS maps keep working unchanged.
+.badge {
+  font-weight: 600;
+  font-size: 0.6875rem;
+  padding: 0.25em 0.55em;
+  border-radius: var(--cui-border-radius-sm);
+}
+
+// Pagination
+.pagination .page-link {
+  border-radius: var(--cui-border-radius-sm);
+  font-size: 0.8125rem;
+}
+
+// Breadcrumb — dense, current-page emphasis
+.breadcrumb {
+  font-size: 0.8125rem;
+  margin-bottom: 0;
+}
+
+.breadcrumb-item.active {
+  color: var(--cui-body-color);
+  font-weight: 600;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// File Library — card-grid file browser (DocumentLibraryPanel.jsx)
+// Shared by Internship / Recruitment / LSGB Projects. Flat cards, hairline
+// border, colored file-type badges carry real information (type), not
+// decoration; the hover lift + tinted border reuses the same idiom as
+// .system-card so it reads as one family with the rest of the app.
+// ─────────────────────────────────────────────────────────────────────────────
+.hma-file-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.hma-file-dropzone {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.9rem;
+  border: 1.5px dashed var(--cui-border-color);
+  border-radius: var(--cui-border-radius);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--cui-secondary-color);
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease,
+    background-color 0.15s ease;
+
+  &:hover,
+  &:focus-visible,
+  &--active {
+    border-color: var(--cui-primary);
+    color: var(--cui-primary);
+    background: rgba(var(--cui-primary-rgb), 0.05);
+  }
+}
+
+.hma-file-search {
+  max-width: 220px;
+}
+
+.hma-file-count {
+  font-size: 0.75rem;
+  color: var(--cui-secondary-color);
+  white-space: nowrap;
+  margin-left: auto;
+}
+
+.hma-file-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+  gap: 0.875rem;
+}
+
+.hma-file-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--cui-border-color);
+  border-radius: var(--cui-border-radius);
+  overflow: hidden;
+  background: var(--cui-body-bg);
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
+
+  &:hover,
+  &:focus-within {
+    border-color: var(--cui-primary);
+    box-shadow: 0 6px 20px rgba(var(--cui-primary-rgb), 0.14);
+    transform: translateY(-2px);
+  }
+
+  &__thumb {
+    height: 92px;
+    background: var(--cui-tertiary-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  &__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__badge {
+    --badge-rgb: 100, 116, 139;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: rgb(var(--badge-rgb));
+    background: rgba(var(--badge-rgb), 0.12);
+    border-radius: var(--cui-border-radius-sm);
+    padding: 0.3rem 0.65rem;
+  }
+
+  &__body {
+    padding: 0.6rem 0.7rem 0.5rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__name {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--cui-body-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__meta {
+    font-size: 0.7rem;
+    color: var(--cui-secondary-color);
+    margin-top: 0.15rem;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 0.15rem;
+    padding: 0.35rem 0.5rem 0.55rem;
+    border-top: 1px solid var(--cui-border-color);
+  }
+
+  &__action {
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    border-radius: var(--cui-border-radius-sm);
+    color: var(--cui-secondary-color);
+    opacity: 0.75;
+    cursor: pointer;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease,
+      opacity 0.15s ease;
+
+    &:hover,
+    &:focus-visible {
+      opacity: 1;
+      background: var(--cui-tertiary-bg);
+      color: var(--cui-primary);
+    }
+
+    &--danger:hover,
+    &--danger:focus-visible {
+      color: var(--cui-danger, #dc3545);
+    }
+  }
+}

@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: hma-iems-api
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: hma-iems-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: 480
+      - key: ENVIRONMENT
+        value: production
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: ALLOWED_ORIGINS
+        value: https://ems.joelz.site
+
+databases:
+  - name: hma-iems-db
+    plan: free
+    databaseName: hma_iems
+    user: hma

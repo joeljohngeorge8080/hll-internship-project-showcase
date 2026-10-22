@@ -1,0 +1,115 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Page-1" id="l0NxWnlsfpJFj3bi_XBa">
+    <mxGraphModel dx="1232" dy="663" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="KFGowhz1E-DTvUCP7MI4-1" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="HR EXPENSE FORECAST MONTH&lt;div&gt;ADMIN EXPENSE FORECAST MONTH&lt;/div&gt;" vertex="1">
+          <mxGeometry height="160" width="160" x="490" y="870" as="geometry" />
+        </mxCell>
+        <mxCell id="KFGowhz1E-DTvUCP7MI4-2" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="HR REVENUE:&lt;div&gt;INTERNSHIP,RECRUITEMENT,TRAINING&lt;/div&gt;" vertex="1">
+          <mxGeometry height="220" width="220" x="240" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="KFGowhz1E-DTvUCP7MI4-3" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="PROJECT PLANNING MONTHLY EXPENSE ; GETS THE REPORT&amp;nbsp;" vertex="1">
+          <mxGeometry height="160" width="160" x="260" y="870" as="geometry" />
+        </mxCell>
+        <mxCell id="KFGowhz1E-DTvUCP7MI4-4" edge="1" parent="1" source="KFGowhz1E-DTvUCP7MI4-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="KFGowhz1E-DTvUCP7MI4-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KFGowhz1E-DTvUCP7MI4-5" edge="1" parent="1" source="KFGowhz1E-DTvUCP7MI4-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=1;exitDx=0;exitDy=0;" target="KFGowhz1E-DTvUCP7MI4-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KFGowhz1E-DTvUCP7MI4-6" edge="1" parent="1" source="KFGowhz1E-DTvUCP7MI4-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="KFGowhz1E-DTvUCP7MI4-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KFGowhz1E-DTvUCP7MI4-7" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="PROJECT SHARE" vertex="1">
+          <mxGeometry height="80" width="80" x="630" y="550" as="geometry" />
+        </mxCell>
+        <mxCell id="KFGowhz1E-DTvUCP7MI4-8" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="5% HR FROM ALL PROJECTS" vertex="1">
+          <mxGeometry height="80" width="80" x="480" y="670" as="geometry" />
+        </mxCell>
+        <mxCell id="KFGowhz1E-DTvUCP7MI4-9" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="5% CORE FROM ALL PROJECTS" vertex="1">
+          <mxGeometry height="80" width="80" x="630" y="670" as="geometry" />
+        </mxCell>
+        <mxCell id="KFGowhz1E-DTvUCP7MI4-10" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="5% ADMIN , FROM ALL PROJECTS" vertex="1">
+          <mxGeometry height="80" width="80" x="770" y="670" as="geometry" />
+        </mxCell>
+        <mxCell id="KFGowhz1E-DTvUCP7MI4-11" edge="1" parent="1" source="KFGowhz1E-DTvUCP7MI4-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="KFGowhz1E-DTvUCP7MI4-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KFGowhz1E-DTvUCP7MI4-12" edge="1" parent="1" source="KFGowhz1E-DTvUCP7MI4-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="KFGowhz1E-DTvUCP7MI4-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KFGowhz1E-DTvUCP7MI4-13" edge="1" parent="1" source="KFGowhz1E-DTvUCP7MI4-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="KFGowhz1E-DTvUCP7MI4-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KFGowhz1E-DTvUCP7MI4-14" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#a20025;fontColor=#ffffff;strokeColor=#6F0000;" value="TOTAL REVENUE" vertex="1">
+          <mxGeometry height="100" width="100" x="590" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="KFGowhz1E-DTvUCP7MI4-15" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" value="LSGB REVENUE" vertex="1">
+          <mxGeometry height="160" width="160" x="810" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="KFGowhz1E-DTvUCP7MI4-16" edge="1" parent="1" source="KFGowhz1E-DTvUCP7MI4-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="KFGowhz1E-DTvUCP7MI4-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KFGowhz1E-DTvUCP7MI4-17" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="SELECTS A DATE :&lt;br&gt;MAYBE 1 YEAR&amp;nbsp;" vertex="1">
+          <mxGeometry height="60" width="120" x="400" y="1125" as="geometry" />
+        </mxCell>
+        <mxCell id="KFGowhz1E-DTvUCP7MI4-18" edge="1" parent="1" source="KFGowhz1E-DTvUCP7MI4-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.133;entryY=0.038;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;" target="KFGowhz1E-DTvUCP7MI4-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KFGowhz1E-DTvUCP7MI4-19" edge="1" parent="1" source="KFGowhz1E-DTvUCP7MI4-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.83;entryY=-0.053;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;" target="KFGowhz1E-DTvUCP7MI4-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KFGowhz1E-DTvUCP7MI4-20" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="VARIABLE" vertex="1">
+          <mxGeometry height="30" width="60" x="530" y="1140" as="geometry" />
+        </mxCell>
+        <mxCell id="KFGowhz1E-DTvUCP7MI4-21" edge="1" parent="1" source="KFGowhz1E-DTvUCP7MI4-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="390" y="1150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KFGowhz1E-DTvUCP7MI4-22" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="CEO" vertex="1">
+          <mxGeometry height="60" width="30" x="310" y="1120" as="geometry" />
+        </mxCell>
+        <mxCell id="KFGowhz1E-DTvUCP7MI4-23" edge="1" parent="1" source="KFGowhz1E-DTvUCP7MI4-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="1040" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KFGowhz1E-DTvUCP7MI4-24" edge="1" parent="1" source="KFGowhz1E-DTvUCP7MI4-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="640" y="1040" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KFGowhz1E-DTvUCP7MI4-25" edge="1" parent="1" source="KFGowhz1E-DTvUCP7MI4-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="KFGowhz1E-DTvUCP7MI4-28" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KFGowhz1E-DTvUCP7MI4-26" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="COMPARES" vertex="1">
+          <mxGeometry height="80" width="80" x="420" y="1270" as="geometry" />
+        </mxCell>
+        <mxCell id="KFGowhz1E-DTvUCP7MI4-27" edge="1" parent="1" source="KFGowhz1E-DTvUCP7MI4-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="KFGowhz1E-DTvUCP7MI4-29">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KFGowhz1E-DTvUCP7MI4-28" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="WILL THE COMPANY IN PROFIT OR LOSS?&lt;br&gt;WILL THE EXPENSES TAKEN FROM THE LSGB REVENUE?&lt;div&gt;IF TAKING LESS FROM LSGB IS GOOD&lt;/div&gt;&lt;div&gt;IF TAKING MORE FROM LSGB IS BAD&lt;/div&gt;" vertex="1">
+          <mxGeometry height="200" width="200" x="360" y="1400" as="geometry" />
+        </mxCell>
+        <mxCell id="KFGowhz1E-DTvUCP7MI4-29" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="REPORT" vertex="1">
+          <mxGeometry height="60" width="120" x="640" y="1440" as="geometry" />
+        </mxCell>
+        <mxCell id="KFGowhz1E-DTvUCP7MI4-30" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=#001DBC;fillColor=#0050ef;align=center;verticalAlign=middle;rounded=0;fontColor=#ffffff;" value="REPORT AND ANALYSIS" vertex="1">
+          <mxGeometry height="30" width="245" x="501" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="KFGowhz1E-DTvUCP7MI4-31" edge="1" parent="1" source="KFGowhz1E-DTvUCP7MI4-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;innerLoopWaypoints=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="KFGowhz1E-DTvUCP7MI4-30">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KFGowhz1E-DTvUCP7MI4-32" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="PATH:EMS/EXPENSE MANAGEMENT /FORECAST EXPENSE" vertex="1">
+          <mxGeometry height="30" width="359" x="480" y="840" as="geometry" />
+        </mxCell>
+        <mxCell id="KFGowhz1E-DTvUCP7MI4-33" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="PATH:PMS/ALL PROJECT/EACH PROJECT/EXPENSE" vertex="1">
+          <mxGeometry height="30" width="230" x="220" y="840" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

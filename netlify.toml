@@ -1,0 +1,10 @@
+[build]
+  base    = "hma-template/emsv1"
+  command = "npm run build"
+  publish = "build"
+
+
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200

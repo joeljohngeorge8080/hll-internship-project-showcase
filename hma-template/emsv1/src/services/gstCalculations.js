@@ -149,7 +149,7 @@ export const computeGstFields = ({ gstNo, totalValue, gstRate, cessRate }) => {
   return {
     gstinValid: true,
     gstinStatus,
-    state: intraState ? GST_STATE_CODES[stateCode] : 'Outside Kerala',
+    state: GST_STATE_CODES[stateCode] ?? null,
     taxableValue,
     gstAmount,
     cessAmount,

@@ -35,7 +35,7 @@ const ProtectedRoute = ({ module, action, children }) => {
   }, [isAuthenticated, allowed, module, action, role])
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace />
+    return <Navigate to="/roles" replace />
   }
 
   if (!allowed) {

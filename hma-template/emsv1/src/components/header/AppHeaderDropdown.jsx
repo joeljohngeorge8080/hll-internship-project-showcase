@@ -56,7 +56,7 @@ const AppHeaderDropdown = () => {
     await logoutApi()
     localStorage.removeItem('hma_token')
     dispatch({ type: 'set', user: null, token: null })
-    navigate('/login')
+    navigate('/roles')
   }
 
   const initials = getInitials(user?.full_name)
@@ -82,7 +82,7 @@ const AppHeaderDropdown = () => {
         <CDropdownDivider />
         <CDropdownItem as="button" type="button" onClick={handleLogout}>
           <CIcon icon={cilAccountLogout} className="me-2" />
-          Logout
+          Switch role
         </CDropdownItem>
       </CDropdownMenu>
     </CDropdown>

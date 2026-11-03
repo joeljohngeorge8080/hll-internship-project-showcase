@@ -1,8 +1,28 @@
-import api from './api'
+import { addRegisteredUser, getRegisteredUsers, removeRegisteredUser } from './localUsers'
 
-export const listUserAccounts = () => api.get('/users').then((res) => res.data)
+// Showcase build: user accounts live in localStorage (see localUsers.js) instead
+// of the FastAPI /users endpoints. Response shape matches UserAccountResponse.
+const toAccount = (u) => ({
+  id: u.id,
+  employee_id: u.employee_id || null,
+  full_name: u.full_name,
+  google_email: u.google_email,
+  role: u.role,
+  is_active: true,
+  created_at: u.added_at,
+  email_sent: true,
+})
 
-export const createUserAccount = ({ full_name, google_email, role, employee_id }) =>
-  api.post('/users', { full_name, google_email, role, employee_id }).then((res) => res.data)
+export const listUserAccounts = () => Promise.resolve(getRegisteredUsers().map(toAccount))
 
-export const deleteUserAccount = (id) => api.delete(`/users/${id}`)
+export const createUserAccount = ({ full_name, google_email, role, employee_id }) => {
+  try {
+    return Promise.resolve(
+      toAccount(addRegisteredUser({ full_name, google_email, role, employee_id })),
+    )
+  } catch (err) {
+    return Promise.reject(err)
+  }
+}
+
+export const deleteUserAccount = (id) => Promise.resolve(removeRegisteredUser(id))

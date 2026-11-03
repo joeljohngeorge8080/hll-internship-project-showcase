@@ -1,23 +1,24 @@
 import assert from 'node:assert/strict'
-import { createRequire } from 'node:module'
-import { fileURLToPath } from 'node:url'
-import { dirname, join } from 'node:path'
 import { loadEsmSource } from './load-esm-source.mjs'
-
-const require = createRequire(import.meta.url)
-const XLSX = require('xlsx') // CJS require avoids ESM-interop issues
 
 const { parseGstSheet, excelDateToISO } = await loadEsmSource('src/services/gstSheetParser.js')
 
-const here = dirname(fileURLToPath(import.meta.url))
-
-// ── 1. The real sample file: letterhead skipped, but zero GST=Yes rows ──
-const samplePath = join(here, '..', '..', '..', 'docs', 'format_csr.xlsx')
-const wb = XLSX.readFile(samplePath)
-const realRows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { header: 1, defval: '' })
-let r = parseGstSheet(realRows)
-assert.equal(r.error, null, 'header row must be found past the 6-row letterhead')
-assert.equal(r.entries.length, 0, 'sample file has only GST=No rows')
+// ── 1. Letterhead rows above the header are skipped; zero GST=Yes rows ──
+// (Uses an in-memory sheet: the real company sample is not shipped in the showcase.)
+const letterheadRows = [
+  ['HLL MANAGEMENT ACADEMY'],
+  ['EXPENDITURE STATEMENT'],
+  [''],
+  [''],
+  ['Period:', 'Q1'],
+  [''],
+  ['SL NO', 'Project Name', 'Is it GST Bill ?', 'Department'],
+  [1, 'Project A', 'No', 'HR'],
+  [2, 'Project B', 'No', 'Admin'],
+]
+let r = parseGstSheet(letterheadRows)
+assert.equal(r.error, null, 'header row must be found past the letterhead')
+assert.equal(r.entries.length, 0, 'sheet has only GST=No rows')
 
 // ── 2. Synthetic sheet with Yes rows and messy values ──
 const header = [

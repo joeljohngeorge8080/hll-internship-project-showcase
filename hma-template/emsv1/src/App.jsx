@@ -18,7 +18,7 @@ localAudit.setUserGetter(() => store.getState())
 
 const EmsLayout = React.lazy(() => import('./layout/EmsLayout'))
 const PmsLayout = React.lazy(() => import('./layout/PmsLayout'))
-const Login = React.lazy(() => import('./views/pages/login/Login'))
+const RoleSelect = React.lazy(() => import('./views/pages/role-select/RoleSelect'))
 const SystemSelection = React.lazy(() => import('./views/pages/system-selection/SystemSelection'))
 const Page404 = React.lazy(() => import('./views/pages/page404/Page404'))
 const Page500 = React.lazy(() => import('./views/pages/page500/Page500'))
@@ -32,13 +32,13 @@ const AppRoutes = () => {
     <Routes>
       <Route
         exact
-        path="/login"
-        name="Login Page"
+        path="/roles"
+        name="Role Select"
         element={
           isAuthenticated ? (
             <Navigate to={directSystemRoute || '/select-system'} replace />
           ) : (
-            <Login />
+            <RoleSelect />
           )
         }
       />
@@ -49,7 +49,7 @@ const AppRoutes = () => {
         path="/select-system"
         element={
           !isAuthenticated ? (
-            <Navigate to="/login" state={{ from: location }} replace />
+            <Navigate to="/roles" state={{ from: location }} replace />
           ) : directSystemRoute ? (
             <Navigate to={directSystemRoute} replace />
           ) : (
@@ -63,7 +63,7 @@ const AppRoutes = () => {
           isAuthenticated ? (
             <EmsLayout />
           ) : (
-            <Navigate to="/login" state={{ from: location }} replace />
+            <Navigate to="/roles" state={{ from: location }} replace />
           )
         }
       />
@@ -73,7 +73,7 @@ const AppRoutes = () => {
           isAuthenticated ? (
             <PmsLayout />
           ) : (
-            <Navigate to="/login" state={{ from: location }} replace />
+            <Navigate to="/roles" state={{ from: location }} replace />
           )
         }
       />
@@ -81,7 +81,7 @@ const AppRoutes = () => {
         path="*"
         element={
           <Navigate
-            to={isAuthenticated ? directSystemRoute || '/select-system' : '/login'}
+            to={isAuthenticated ? directSystemRoute || '/select-system' : '/roles'}
             replace
           />
         }
@@ -111,16 +111,6 @@ const App = () => {
 
   useEffect(() => {
     if (!token) return
-
-    // Dev tokens are in-memory only — they must not survive a page reload.
-    // Clear any stale dev token so the user is always routed to login on refresh.
-    if (token.startsWith('dev-')) {
-      localStorage.removeItem('hma_token')
-      localStorage.removeItem('hma_dev_user')
-      dispatch({ type: 'set', user: null, token: null })
-      setIsInitializing(false) // eslint-disable-line react-hooks/set-state-in-effect
-      return
-    }
 
     getMeApi()
       .then(({ data }) => {

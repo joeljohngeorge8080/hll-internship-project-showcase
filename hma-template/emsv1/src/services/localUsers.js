@@ -4,8 +4,6 @@ const STORAGE_KEY = 'hma_registered_users'
 
 // These users are always present regardless of what's in localStorage.
 // The id must stay fixed so duplicates are not created on subsequent loads.
-// PASSWORD_LOGINS are checked before the backend — Employee ID + password
-// login works without a backend account for these entries.
 const SEEDED_USERS = [
   {
     id: 'USR000',
@@ -82,35 +80,6 @@ const SEEDED_USERS = [
   },
 ]
 
-// Local password accounts — checked before the backend on Employee ID login.
-// These bypass the backend entirely (all app data is localStorage-based).
-// employee_id matches the real Staff & Payroll record so specialization/
-// project scoping resolves correctly (see localProjects.getPaSpecialization).
-const PASSWORD_LOGINS = [
-  { employee_id: 'ADMIN001', password: 'Demo-Admin-1', user_id: 'DEV_ADMIN_001' },
-  { employee_id: 'ADMIN002', password: 'Demo-Admin-2', user_id: 'DEV_ADMIN_002' },
-  { employee_id: 'ADMIN003', password: 'Demo-Admin-3', user_id: 'DEV_ADMIN_003' },
-  { employee_id: 'ADMIN004', password: 'Demo-Admin-4', user_id: 'DEV_ADMIN_004' },
-  { employee_id: 'ADMIN005', password: 'Demo-Admin-5', user_id: 'DEV_ADMIN_005' },
-  // Project Coordinator / Project Associate logins for testing scoped views
-  { employee_id: 'EMP005', password: 'Demo-PC-1', user_id: 'PC_DEMO_001' },
-  { employee_id: 'EMP2707', password: 'Demo-PA-1', user_id: 'PA_DEMO_001' },
-  { employee_id: 'EMP3351', password: 'Demo-PA-2', user_id: 'PA_DEMO_002' },
-]
-
-export const verifyPasswordLogin = (employeeId, password) => {
-  const entry = PASSWORD_LOGINS.find((p) => p.employee_id === employeeId && p.password === password)
-  if (!entry) return null
-  const seeded = SEEDED_USERS.find((u) => u.id === entry.user_id)
-  if (!seeded) return null
-  return {
-    employee_id: entry.employee_id,
-    full_name: seeded.full_name,
-    role: seeded.role,
-    google_email: seeded.google_email,
-  }
-}
-
 const load = () => {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
@@ -137,6 +106,7 @@ export const addRegisteredUser = (user) => {
     full_name: user.full_name,
     google_email: user.google_email.toLowerCase().trim(),
     role: user.role,
+    employee_id: user.employee_id || null,
     added_by: user.added_by || 'admin',
     added_at: new Date().toISOString(),
   }

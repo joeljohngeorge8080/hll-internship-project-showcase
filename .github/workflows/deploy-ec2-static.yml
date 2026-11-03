@@ -1,0 +1,97 @@
+name: Deploy static site to EC2
+
+# Manual only until the EC2 host and secrets are in place.
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-ec2-static
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: hma-template/emsv1
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: hma-template/emsv1/.nvmrc
+          cache: npm
+          cache-dependency-path: hma-template/emsv1/package-lock.json
+
+      - name: Install and build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Package build and copy nginx config
+        run: |
+          tar -C build -czf "$GITHUB_WORKSPACE/release.tgz" .
+          cp nginx.conf "$GITHUB_WORKSPACE/nginx.conf"
+
+      - name: Prepare release folder on host
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: mkdir -p /home/ubuntu/hma-ems-release
+
+      - name: Upload release and nginx config
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: "release.tgz,nginx.conf"
+          target: /home/ubuntu/hma-ems-release
+          strip_components: 0
+
+      - name: Swap site live, reload nginx, health check
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            set -euo pipefail
+            R=/home/ubuntu/hma-ems-release
+            SITE=/var/www/hma-ems
+
+            # 1. Unpack the new build next to the live one.
+            sudo rm -rf "$SITE.new"
+            sudo mkdir -p "$SITE.new"
+            sudo tar -xzf "$R/release.tgz" -C "$SITE.new"
+            sudo chmod -R a+rX "$SITE.new"
+
+            # 2. Install the nginx config and validate it before touching the live site.
+            sudo install -m 644 "$R/nginx.conf" /etc/nginx/sites-available/hma-ems
+            sudo ln -sfn /etc/nginx/sites-available/hma-ems /etc/nginx/sites-enabled/hma-ems
+            sudo nginx -t
+
+            # 3. Swap directories, keeping the previous build for rollback.
+            sudo rm -rf "$SITE.prev"
+            if [ -d "$SITE" ]; then sudo mv "$SITE" "$SITE.prev"; fi
+            sudo mv "$SITE.new" "$SITE"
+            sudo systemctl reload nginx
+
+            # 4. Health check: the served index must contain the app root.
+            for i in $(seq 1 10); do
+              if curl -fsS -H "Host: ems.joelz.site" http://127.0.0.1/ | grep -q 'id="root"'; then
+                echo "Health check passed"
+                exit 0
+              fi
+              echo "Waiting for nginx... ($i/10)"
+              sleep 2
+            done
+
+            # 5. Roll back to the previous build.
+            echo "Health check failed, rolling back" >&2
+            sudo rm -rf "$SITE"
+            if [ -d "$SITE.prev" ]; then sudo mv "$SITE.prev" "$SITE"; fi
+            sudo systemctl reload nginx
+            exit 1

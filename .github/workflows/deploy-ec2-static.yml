@@ -97,9 +97,12 @@ jobs:
             sudo mv "$SITE.new" "$SITE"
             sudo systemctl reload nginx
 
-            # 4. Health check: the served index must contain the app root.
+            # 4. Health check over HTTPS: the served index must contain the app root.
+            #    --resolve pins the domain to localhost so SNI and the certificate
+            #    name still match; certificate validity is not what is being tested.
+            DOMAIN=hll-internship-project.joelz.site
             for i in $(seq 1 10); do
-              if curl -fsS -H "Host: ems.joelz.site" http://127.0.0.1/ | grep -q 'id="root"'; then
+              if curl -fsSk --resolve "$DOMAIN:443:127.0.0.1" "https://$DOMAIN/" | grep -q 'id="root"'; then
                 echo "Health check passed"
                 exit 0
               fi

@@ -54,3 +54,8 @@ Thumbs.db
 # keep documented env templates
 !.env.example
 !**/.env.example
+
+# Private keys / EC2 key pairs: never commit
+pemfile/
+*.pem
+*.key

@@ -1,5 +1,11 @@
 # HMA IEMS — Integrated Enterprise Management System (portfolio showcase)
 
+<p align="center">
+  <a href="https://hll-internship-project.joelz.site" target="_blank" rel="noopener noreferrer">
+    <img src="https://img.shields.io/badge/%F0%9F%9A%80%20Live%20Demo-hll--internship--project.joelz.site-2ea44f?style=for-the-badge" alt="Live Demo — hll-internship-project.joelz.site" />
+  </a>
+</p>
+
 A sanitized copy of a production internal-operations platform: project management (PMS), employee/payroll/expense management (EMS), GST and fund-ledger tracking, role-based access, and an AI assistant.
 All company data, credentials and identifiers have been removed; seed data is synthetic.
 

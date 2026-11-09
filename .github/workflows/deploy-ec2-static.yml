@@ -39,7 +39,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
-          script: mkdir -p /home/ubuntu/hma-ems-release
+          script: mkdir -p "/home/${{ secrets.EC2_USER }}/hma-ems-release"
 
       - name: Upload release and nginx config
         uses: appleboy/scp-action@v0.1.7
@@ -48,7 +48,7 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           source: "release.tgz,nginx.conf"
-          target: /home/ubuntu/hma-ems-release
+          target: /home/${{ secrets.EC2_USER }}/hma-ems-release
           strip_components: 0
 
       - name: Swap site live, reload nginx, health check
@@ -59,8 +59,19 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             set -euo pipefail
-            R=/home/ubuntu/hma-ems-release
+            R="/home/${{ secrets.EC2_USER }}/hma-ems-release"
             SITE=/var/www/hma-ems
+            CONF=/etc/nginx/sites-available/hma-ems
+            LINK=/etc/nginx/sites-enabled/hma-ems
+
+            # Put the previous nginx config back (or remove ours if there was none).
+            restore_conf() {
+              if [ -f "$CONF.prev" ]; then
+                sudo mv "$CONF.prev" "$CONF"
+              else
+                sudo rm -f "$LINK" "$CONF"
+              fi
+            }
 
             # 1. Unpack the new build next to the live one.
             sudo rm -rf "$SITE.new"
@@ -69,9 +80,16 @@ jobs:
             sudo chmod -R a+rX "$SITE.new"
 
             # 2. Install the nginx config and validate it before touching the live site.
-            sudo install -m 644 "$R/nginx.conf" /etc/nginx/sites-available/hma-ems
-            sudo ln -sfn /etc/nginx/sites-available/hma-ems /etc/nginx/sites-enabled/hma-ems
-            sudo nginx -t
+            #    A failed test restores the old config so nginx is never left unloadable.
+            sudo rm -f "$CONF.prev"
+            if [ -f "$CONF" ]; then sudo cp -p "$CONF" "$CONF.prev"; fi
+            sudo install -m 644 "$R/nginx.conf" "$CONF"
+            sudo ln -sfn "$CONF" "$LINK"
+            if ! sudo nginx -t; then
+              echo "nginx config test failed, restoring previous config" >&2
+              restore_conf
+              exit 1
+            fi
 
             # 3. Swap directories, keeping the previous build for rollback.
             sudo rm -rf "$SITE.prev"
@@ -93,5 +111,6 @@ jobs:
             echo "Health check failed, rolling back" >&2
             sudo rm -rf "$SITE"
             if [ -d "$SITE.prev" ]; then sudo mv "$SITE.prev" "$SITE"; fi
+            restore_conf
             sudo systemctl reload nginx
             exit 1

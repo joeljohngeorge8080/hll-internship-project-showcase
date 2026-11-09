@@ -37,3 +37,14 @@ The site is served at `https://hll-internship-project.joelz.site`. The certifica
    The default nginx site serves `/var/www/html` on port 80, which is all certbot needs for the first issue.
 3. Run the deploy workflow. Renewals are automatic (the `certbot.timer` unit) and use the `/.well-known/acme-challenge/` path kept open in `nginx.conf`; check with `sudo certbot renew --dry-run`.
 4. HSTS is set to one day. Once HTTPS is stable, raise `max-age` in `nginx.conf`.
+
+## Credits
+This showcase is a sanitized copy of a project built by a small team during an internship. The original repository is private and contains company data, so its commit history is not part of this public copy.
+
+| Name | GitHub |
+| --- | --- |
+| Joel John George | [joeljohngeorge8080](https://github.com/joeljohngeorge8080) |
+| Prathyusha | [prathyusha71](https://github.com/prathyusha71) |
+| V Sridhar | [Sridd20](https://github.com/Sridd20) |
+
+This copy (sanitization, in-browser demo data layer, deployment setup) was prepared by Joel John George.
